@@ -1,0 +1,24 @@
+{
+    "name": "omnipay/payplanet",
+    "autoload": {
+        "psr-4": {
+            "Omnipay\\PayPlanet\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "",
+            "email": ""
+        }
+    ],
+    "require": {
+        "omnipay/omnipay": "^3.2",
+        "league/omnipay": "^3",
+        "vlucas/phpdotenv": "^5.5"
+    },
+    "config": {
+        "allow-plugins": {
+            "php-http/discovery": true
+        }
+    }
+}
