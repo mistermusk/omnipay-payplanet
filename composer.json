@@ -1,5 +1,6 @@
 {
-    "name": "omnipay/payplanet",
+    "name": "mistermusk/omnipay-payplanet",
+    "type": "library",
     "autoload": {
         "psr-4": {
             "Omnipay\\PayPlanet\\": "src/"
