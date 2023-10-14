@@ -92,7 +92,7 @@ class PurchaseRequest extends AbstractRequest
     {
         $secretKey = $this->getParameter('secretKey');
         $jsonData = json_encode($data);
-        print_r($data);
+
         $headers = [
             'Content-Type' => 'application/json',
             'API-Sign' => hash('sha256', $secretKey . $jsonData)
