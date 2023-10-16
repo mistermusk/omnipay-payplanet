@@ -27,11 +27,11 @@ class PayoutRequest extends AbstractRequest
 
         $data = [
             'endpoint' => $this->getEndpoint(),
-            'module' => $this->getModule(),
+            // 'module' => $this->getModule(),
             'amount' => $this->getAmount(),
             'currency' => $this->getCurrency(),
-            'description' => $this->getDescription(),
-            'client_id' => $this->getClientId(),
+            // 'description' => $this->getDescription(),
+            // 'client_id' => $this->getClientId(),
         ];
 
         return array_filter($data, function ($value) {
