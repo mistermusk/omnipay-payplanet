@@ -8,7 +8,7 @@ class PayoutResponse extends AbstractResponse
 {
     public function isSuccessful()
     {
-        return isset($this->data['info']['status']) && $this->data['info']['status'] === 'success';
+        return isset($this->data['info']['payment']['status']) && $this->data['info']['payment']['status'] === 'create';
     }
 
     public function getTransactionReference()
