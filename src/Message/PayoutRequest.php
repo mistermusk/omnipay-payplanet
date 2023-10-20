@@ -21,17 +21,45 @@ class PayoutRequest extends AbstractRequest
         return $this->setParameter('secretKey', $value);
     }
 
+    public function getAmount()
+    {
+        return $this->getParameter('amount');
+    }
+
+    public function setAmount($value)
+    {
+        return $this->setParameter('amount', $value);
+    }
+
+    public function getCurrency()
+    {
+        return $this->getParameter('currency');
+    }
+
+    public function setCurrency($value)
+    {
+        return $this->setParameter('currency', $value);
+    }
+
+    public function getPan()
+    {
+        return $this->getParameter('pan');
+    }
+
+    public function setPan($value)
+    {
+        return $this->setParameter('pan', $value);
+    }
+
     public function getData()
     {
         $this->validate('amount', 'currency');
 
         $data = [
             'endpoint' => $this->getEndpoint(),
-            // 'module' => $this->getModule(),
+            "pan" => $this->getPan(),
             'amount' => $this->getAmount(),
-            'currency' => $this->getCurrency(),
-            // 'description' => $this->getDescription(),
-            // 'client_id' => $this->getClientId(),
+            'currency' => MapperCodeCurrency::convertCurrencyNameToCode($this->getCurrency()),
         ];
 
         return array_filter($data, function ($value) {

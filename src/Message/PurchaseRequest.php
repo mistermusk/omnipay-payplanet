@@ -148,7 +148,7 @@ class PurchaseRequest extends AbstractRequest
         $data = [
             'endpoint' => $this->getEndpoint(),
             'amount' => $this->getAmount(),
-            'currency' => $this->getCurrency(),
+            'currency' => MapperCodeCurrency::convertCurrencyNameToCode($this->getCurrency()),
             'description' => $this->getDescription(),
             'client_id' => $this->getClientId(),
             'success_url' => $this->getSuccessUrl(),

@@ -1,6 +1,6 @@
 <?php
 
-namespace Packages\Payments\Helpers;
+namespace Omnipay\PayPlanet\Message;
 
 
 class MapperCodeCurrency
