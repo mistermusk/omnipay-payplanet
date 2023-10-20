@@ -51,6 +51,16 @@ class PayoutRequest extends AbstractRequest
         return $this->setParameter('pan', $value);
     }
 
+    public function getModerated()
+    {
+        return $this->getParameter('moderated');
+    }
+
+    public function setModerated($value)
+    {
+        return $this->setParameter('moderated', $value);
+    }
+
     public function getData()
     {
         $this->validate('amount', 'currency');
@@ -60,6 +70,7 @@ class PayoutRequest extends AbstractRequest
             "pan" => $this->getPan(),
             'amount' => $this->getAmount(),
             'currency' => MapperCodeCurrency::convertCurrencyNameToCode($this->getCurrency()),
+            'moderated' => $this->getModerated()
         ];
 
         return array_filter($data, function ($value) {
