@@ -53,6 +53,13 @@ class Gateway extends AbstractGateway
             ->setSecretKey($this->getSecretKey());
     }
 
+    public function moderated(array $parameters = [])
+    {
+        return $this->createRequest('\Omnipay\PayPlanet\Message\ModeratePayoutRequest', $parameters)
+            ->setEndpoint($this->getApiKey())
+            ->setSecretKey($this->getSecretKey());
+    }
+
     public function fetchTransaction(array $parameters = [])
     {
         return $this->createRequest('\Omnipay\PayPlanet\Message\FetchTransactionRequest', $parameters)
