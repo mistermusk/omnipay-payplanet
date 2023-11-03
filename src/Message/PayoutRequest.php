@@ -60,6 +60,14 @@ class PayoutRequest extends AbstractRequest
     {
         return $this->setParameter('moderated', $value);
     }
+    public function setMethod($value)
+    {
+        return $this->setParameter('method', $value);
+    }
+    public function getMethod()
+    {
+        return $this->getParameter('method');
+    }
 
     public function getData()
     {
@@ -100,6 +108,8 @@ class PayoutRequest extends AbstractRequest
 
     protected function getPayoutApiEndpoint()
     {
-        return 'https://api.pay-planet.com/api/v1/paymentgate/payout/simple/';
+        $mth = $this->getMethod();
+        return Methods::getLink(settype($mth, "integer"));
     }
+
 }

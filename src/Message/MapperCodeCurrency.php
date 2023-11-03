@@ -1,22 +1,22 @@
 <?php
 
 namespace Omnipay\PayPlanet\Message;
-
+use \Payum\ISO4217\ISO4217;
 
 class MapperCodeCurrency
 {
-    protected static $currencyMapper = array(
-        978 => "EUR",
-        "EUR" => 978,
-    );
+
 
     public static function convertCurrencyCodeToName(int $code)
     {
-        return self::$currencyMapper[$code] ?? null;
+        $iso4217 = new ISO4217;
+        return $iso4217->findByNumeric("$code").getName();
     }
 
     public static function convertCurrencyNameToCode(string $name)
     {
-        return self::$currencyMapper[$name] ?? null;
+        $iso4217 = new ISO4217;
+        return $iso4217->findByAlpha3($name).getNumeric();
     }
 }
+

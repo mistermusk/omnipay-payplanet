@@ -15,7 +15,8 @@
     "require": {
         "omnipay/omnipay": "^3.2",
         "league/omnipay": "^3",
-        "vlucas/phpdotenv": "^5.5"
+        "vlucas/phpdotenv": "^5.5",
+        "payum/iso4217": "*"
     },
     "config": {
         "allow-plugins": {

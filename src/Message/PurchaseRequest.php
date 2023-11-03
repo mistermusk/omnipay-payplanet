@@ -141,6 +141,17 @@ class PurchaseRequest extends AbstractRequest
     {
         return $this->setParameter('buyer', $value);
     }
+
+    public function getMethod()
+    {
+        return $this->getParameter('method');
+    }
+    public function setMethod($value)
+    {
+        return $this->setParameter('method', $value);
+    }
+
+
     public function getData()
     {
         $this->validate('amount', 'currency');
@@ -192,7 +203,8 @@ class PurchaseRequest extends AbstractRequest
 
     protected function getApiEndpoint()
     {
-        return 'https://api.pay-planet.com/api/v1/paymentgate/payment/simple/';
+        $mth = $this->getMethod();
+        return Methods::getLink(settype($mth, "integer"));
     }
 }
 
