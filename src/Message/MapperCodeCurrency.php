@@ -16,7 +16,7 @@ class MapperCodeCurrency
     public static function convertCurrencyNameToCode(string $name)
     {
         $iso4217 = new ISO4217;
-        return $iso4217->findByAlpha3($name).getNumeric();
+        return $iso4217->findByAlpha3($name);
     }
 }
 
