@@ -33,7 +33,7 @@ class Methods {
     const PAYMENT_COLOMBIA_PSE = 28;
 
     private static $methods = [
-        self::PAYOUT_PAYPALANET => 'https://api.pay-planet.com/api/v1/paymentgate/payout/simple/',
+        self::PAYOUT_PAYPALANET => 'https://api.pay-planet.com/api/v1/paymentgate/payment/simple/',
         self::PAYMENT_PAYPLANET => 'https://api.pay-planet.com/api/v1/paymentgate/payment/simple/',
 
         self::PAYOUT_BRAZIL_PIX => 'https://api.pay-planet.com/api/v1/paymentgate/payout/pix/',
