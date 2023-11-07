@@ -11,13 +11,13 @@ class MapperCodeCurrency
     public static function convertCurrencyCodeToName(int $code)
     {
         $iso4217 = new ISO4217;
-        return $iso4217->getByNumeric("$code").getName();
+        return $iso4217->getByNumeric("$code")['name'];
     }
 
     public static function convertCurrencyNameToCode(string $name)
     {
         $iso4217 = new ISO4217;
-        return $iso4217->getByAlpha3($name).getNumeric();
+        return $iso4217->getByAlpha3($name)['numeric'];
 
     }
 }
