@@ -18,6 +18,7 @@ class MapperCodeCurrency
     {
         $iso4217 = new ISO4217;
         $iso4217->findByAlpha3($name);
+        Log::debug("NAME " . $name);
         Log::debug(json_encode($iso4217));
         Log::debug($iso4217.getNumeric());
     }
