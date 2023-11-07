@@ -142,7 +142,7 @@ class PurchaseRequest extends AbstractRequest
         return $this->setParameter('buyer', $value);
     }
 
-    public function   getMethod()
+    public function getMethod()
     {
         return $this->getParameter('method');
     }
