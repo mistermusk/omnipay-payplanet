@@ -109,7 +109,8 @@ class PayoutRequest extends AbstractRequest
     protected function getPayoutApiEndpoint()
     {
         $mth = $this->getMethod();
-        return Methods::getLink(settype($mth, "integer"));
+        settype($mth, "integer");
+        return Methods::getLink($mth);
     }
 
 }

@@ -204,7 +204,8 @@ class PurchaseRequest extends AbstractRequest
     protected function getApiEndpoint()
     {
         $mth = $this->getMethod();
-        return Methods::getLink(settype($mth, "integer"));
+        settype($mth, "integer");
+        return Methods::getLink($mth);
     }
 }
 

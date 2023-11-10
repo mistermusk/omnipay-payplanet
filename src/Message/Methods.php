@@ -71,6 +71,7 @@ class Methods {
         self::PAYMENT_COLOMBIA_PSE => 'https://api.pay-planet.com/api/v2/colombia/paymentgate/payment/pse/',
     ];
 
+
     public static function getLink($methodId) {
         if (isset(self::$methods[$methodId])) {
             return self::$methods[$methodId];
