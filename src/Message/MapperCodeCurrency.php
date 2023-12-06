@@ -12,6 +12,6 @@ class MapperCodeCurrency
 
         $currency = $iso4217->getByAlpha3($currencyName);
 
-        return $currency ? $currency->getNumeric() : null;
+        return $currency ? $currency['numeric'] : null;
     }
 }
