@@ -10,7 +10,7 @@ class MapperCodeCurrency
     {
         $iso4217 = new ISO4217();
 
-        $currency = $iso4217->getByAlphabeticCode($currencyName);
+        $currency = $iso4217->getByAlpha3($currencyName);
 
         return $currency ? $currency->getNumeric() : null;
     }
