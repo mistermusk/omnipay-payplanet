@@ -4,6 +4,7 @@
 namespace Omnipay\PayPlanet\Message;
 
 use Omnipay\Common\Message\AbstractRequest;
+use MapperCodeCurrency;
 
 class PurchaseRequest extends AbstractRequest
 {
