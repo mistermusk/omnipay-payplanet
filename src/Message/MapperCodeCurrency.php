@@ -1,5 +1,6 @@
 <?php
 
+namespace Omnipay\PayPlanet\Message;
 use Alcohol\ISO4217;
 
 class MapperCodeCurrency
