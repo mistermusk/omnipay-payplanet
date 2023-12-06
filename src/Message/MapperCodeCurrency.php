@@ -13,3 +13,5 @@ class MapperCodeCurrency
         return $currency ? $currency->getNumeric() : null;
     }
 }
+
+print_r(MapperCodeCurrency::convertCurrencyNameToCode('EUR'));

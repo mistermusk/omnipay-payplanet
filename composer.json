@@ -8,15 +8,15 @@
     },
     "authors": [
         {
-            "name": "",
-            "email": ""
+            "name": "anonim",
+            "email": "anonim@anonim.com"
         }
     ],
     "require": {
         "omnipay/omnipay": "^3.2",
         "league/omnipay": "^3",
         "vlucas/phpdotenv": "^5.5",
-        "alcohol/iso4217": "4.1.0"
+        "alcohol/iso4217": "^4.1"
     },
     "config": {
         "allow-plugins": {
