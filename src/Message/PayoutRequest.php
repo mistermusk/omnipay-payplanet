@@ -3,7 +3,8 @@
 namespace Omnipay\PayPlanet\Message;
 
 use Omnipay\Common\Message\AbstractRequest;
-use MapperCodeCurrency;
+use Omnipay\PayPlanet\Message\MapperCodeCurrency;
+
 
 class PayoutRequest extends AbstractRequest
 {
