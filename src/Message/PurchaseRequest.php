@@ -151,6 +151,42 @@ class PurchaseRequest extends AbstractRequest
         return $this->setParameter('method', $value);
     }
 
+    public function getCode()
+    {
+        return $this->getParameter('code');
+    }
+    public function setCode($value)
+    {
+        return $this->setParameter('code', $value);
+    }
+
+    public function getName()
+    {
+        return $this->getParameter('name');
+    }
+    public function setName($value)
+    {
+        return $this->setParameter('name', $value);
+    }
+
+    public function getEmail()
+    {
+        return $this->getParameter('email');
+    }
+    public function setEmail($value)
+    {
+        return $this->setParameter('email', $value);
+    }
+
+    public function getAdditional_data()
+    {
+        return $this->getParameter('additional_data');
+    }
+    public function setAdditional_data($value)
+    {
+        return $this->setParameter('additional_data', $value);
+    }
+
 
     public function getData()
     {
@@ -172,6 +208,10 @@ class PurchaseRequest extends AbstractRequest
             'auto_redirect' => $this->getAutoRedirect(),
             'buyer_id' => $this->getBuyerId(),
             'buyer' => $this->getBuyer(),
+            'additional_data' => $this->getAdditionalData(),
+            'name' => $this->getName(),
+            'email' => $this->getEmail(),
+
 
         ];
         return array_filter($data, function ($value) {

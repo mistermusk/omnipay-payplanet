@@ -32,6 +32,23 @@ class Methods {
     const PAYOUT_COLOMBIA_TRANSFIYA = 27;
     const PAYMENT_COLOMBIA_PSE = 28;
 
+
+    private static $methods_moderate = [
+        self::PAYOUT_PAYPALANET => 'https://api.pay-planet.com/api/v1/paymentgate/payout/simple/',
+        self::PAYOUT_BRAZIL_PIX => 'https://api.pay-planet.com/api/v1/paymentgate/payout/pix/',
+
+        self::PAYOUT_INDIA_IMPSQP => 'https://api.pay-planet.com/api/v2/india/paymentgate/payout/india_v2/imps_qp/',
+        self::PAYOUT_INDIA_UPIQP => 'https://api.pay-planet.com/api/v2/india/paymentgate/payout/india_v2/upi_qp_v2/',
+        self::PAYOUT_INDIA_EP => 'https://api.pay-planet.com/api/v2/india/paymentgate/payout/india_v2/ep/',
+        self::PAYOUT_INDIA_IMPSPZC => 'https://api.pay-planet.com/api/v2/india/paymentgate/payout/india_v2/imps_pzc/',
+
+        self::PAYOUT_UZBEKISTAN => 'https://api.pay-planet.com/api/v1/paymentgate/payout/simple/',
+        self::PAYOUT_KAZAKHSTAN => 'https://api.pay-planet.com/api/v2/kazakhstan/paymentgate/payout/simple/',
+        self::PAYOUT_BANGLADESH_WALLET => 'https://api.pay-planet.com/api/v2/bangladesh/paymentgate/payout/simple/',
+        self::PAYOUT_ASIA_INDONESIA => 'https://api.pay-planet.com/api/v2/asia/paymentgate/payout/indonesia_v1/simple/',
+        self::PAYOUT_ASIA_THAILAND => 'https://api.pay-planet.com/api/v2/asia/paymentgate/payout/thailand_v1/simple/',
+        self::PAYOUT_COLOMBIA_TRANSFIYA => 'https://api.pay-planet.com/api/v2/colombia/paymentgate/payout/transfiya/',
+    ];
     private static $methods = [
         self::PAYMENT_PAYPLANET => 'https://api.pay-planet.com/api/v1/paymentgate/payment/simple/',
         self::PAYOUT_PAYPALANET => 'https://api.pay-planet.com/api/v1/paymentgate/payout/simple/',
