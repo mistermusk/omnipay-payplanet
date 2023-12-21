@@ -11,69 +11,42 @@ class Gateway extends AbstractGateway
         return 'PayPlanet';
     }
 
-    public function getDefaultParameters()
+    private $keys = [];
+    public function setKeys($method, $shop_id, $secret_key)
     {
-        return [
-            'apiKey' => '',
-            'secretKey' => '',
+        $this->keys[$method] = [
+            'api_key' => $shop_id,
+            'secret_key' => $secret_key,
         ];
     }
 
-    public function getApiKey()
+    public function getKeys($method)
     {
-        return $this->getParameter('apiKey');
+        return isset($this->keys[$method]) ? $this->keys[$method] : null;
     }
 
-    public function setApiKey($value)
+    public function getFullKeys()
     {
-        return $this->setParameter('apiKey', $value);
-    }
-
-    public function getSecretKey()
-    {
-        return $this->getParameter('secretKey');
-    }
-
-    public function setSecretKey($value)
-    {
-        return $this->setParameter('secretKey', $value);
+        return $this->keys;
     }
 
     public function purchase(array $parameters = [])
     {
         return $this->createRequest('\Omnipay\PayPlanet\Message\PurchaseRequest', $parameters)
-            ->setEndpoint($this->getApiKey())
-            ->setSecretKey($this->getSecretKey());
+            ->setFullKeys($this->getFullKeys());
     }
 
     public function payout(array $parameters = [])
     {
         return $this->createRequest('\Omnipay\PayPlanet\Message\PayoutRequest', $parameters)
-            ->setEndpoint($this->getApiKey())
-            ->setSecretKey($this->getSecretKey());
+            ->setFullKeys($this->getFullKeys());
     }
 
     public function moderated(array $parameters = [])
     {
         return $this->createRequest('\Omnipay\PayPlanet\Message\ModeratePayoutRequest', $parameters)
-            ->setEndpoint($this->getApiKey())
-            ->setSecretKey($this->getSecretKey());
+            ->setFullKeys($this->getFullKeys());
     }
-
-    public function fetchTransaction(array $parameters = [])
-    {
-        return $this->createRequest('\Omnipay\PayPlanet\Message\FetchTransactionRequest', $parameters)
-            ->setEndpoint($this->getApiKey())
-            ->setSecretKey($this->getSecretKey());
-    }
-
-    public function fetchPayout(array $parameters = [])
-    {
-        return $this->createRequest('\Omnipay\PayPlanet\Message\PayoutInfoRequest', $parameters)
-            ->setEndpoint($this->getApiKey())
-            ->setSecretKey($this->getSecretKey());
-    }
-
 
 
 }

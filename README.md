@@ -1,1 +1,1 @@
-# omnipay-payplanet
+# omnipay-payplanet only BRL PIC PICPAY

@@ -13,14 +13,9 @@ class PayoutResponse extends AbstractResponse
         }
     }
 
-    public function getTransactionReference()
-    {
-        return isset($this->data['tx']['tx']) ? $this->data['tx']['tx'] : null;
-    }
-
     public function getMessage()
     {
-        return isset($this->data['errors']) ? json_encode($this->data['errors']) : null;
+        return isset($this->data) ? json_encode($this->data) : null;
     }
 
 }

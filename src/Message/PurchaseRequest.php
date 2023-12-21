@@ -8,18 +8,23 @@ use Omnipay\Common\Message\AbstractRequest;
 class PurchaseRequest extends AbstractRequest
 {
 
-    public function getEndpoint()
-    {
-        return $this->getParameter('endpoint');
-    }
-    public function setEndpoint($value)
-    {
-        return $this->setParameter('endpoint', $value);
+    public function setFullKeys($fullKeys){
+        return $this->setParameter('fullKeys', $fullKeys);
     }
 
-    public function setSecretKey($value)
+    public function getFullKeys()
     {
-        return $this->setParameter('secretKey', $value);
+        return $this->getParameter('fullKeys');
+    }
+
+    public function getApikey()
+    {
+        return $this->getFullKeys()[$this->getMethod()]['api_key'];
+    }
+
+    public function getSecretKey()
+    {
+        return $this->getFullKeys()[$this->getMethod()]['secret_key'];
     }
 
 
@@ -43,15 +48,6 @@ class PurchaseRequest extends AbstractRequest
         return $this->setParameter('currency', $value);
     }
 
-    public function getDescription()
-    {
-        return $this->getParameter('description');
-    }
-
-    public function setDescription($value)
-    {
-        return $this->setParameter('description', $value);
-    }
 
     public function getClientId()
     {
@@ -87,61 +83,6 @@ class PurchaseRequest extends AbstractRequest
     }
 
 
-    public function getRouterData()
-    {
-        return $this->getParameter('router_data');
-    }
-    public function setRouterData($value)
-    {
-        return $this->setParameter('router_data', $value);
-    }
-
-
-    public function getCustomData()
-    {
-        return $this->getParameter('custom_data');
-    }
-    public function setCustomData($value)
-    {
-        return $this->setParameter('custom_data', $value);
-    }
-
-    public function getAdditionalData()
-    {
-        return $this->getParameter('additional_data');
-    }
-    public function setAdditionalData($value)
-    {
-        return $this->setParameter('additional_data', $value);
-    }
-
-    public function getAutoRedirect()
-    {
-        return $this->getParameter('auto_redirect');
-    }
-    public function setAutoRedirect($value)
-    {
-        return $this->setParameter('auto_redirect', $value);
-    }
-
-    public function getBuyerId()
-    {
-        return $this->getParameter('buyer_id');
-    }
-    public function setBuyerId($value)
-    {
-        return $this->setParameter('buyer_id', $value);
-    }
-
-    public function getBuyer()
-    {
-        return $this->getParameter('buyer');
-    }
-    public function setBuyer($value)
-    {
-        return $this->setParameter('buyer', $value);
-    }
-
     public function getMethod()
     {
         return $this->getParameter('method');
@@ -151,38 +92,11 @@ class PurchaseRequest extends AbstractRequest
         return $this->setParameter('method', $value);
     }
 
-    public function getCode()
-    {
-        return $this->getParameter('code');
-    }
-    public function setCode($value)
-    {
-        return $this->setParameter('code', $value);
-    }
-
-    public function getName()
-    {
-        return $this->getParameter('name');
-    }
-    public function setName($value)
-    {
-        return $this->setParameter('name', $value);
-    }
-
-    public function getEmail()
-    {
-        return $this->getParameter('email');
-    }
-    public function setEmail($value)
-    {
-        return $this->setParameter('email', $value);
-    }
-
-    public function getAdditional_data()
+    public function getAdditionaldata()
     {
         return $this->getParameter('additional_data');
     }
-    public function setAdditional_data($value)
+    public function setAdditionaldata($value)
     {
         return $this->setParameter('additional_data', $value);
     }
@@ -193,25 +107,14 @@ class PurchaseRequest extends AbstractRequest
         $this->validate('amount', 'currency');
 
         $data = [
-            'endpoint' => $this->getEndpoint(),
+            'endpoint' => $this->getApikey(),
             'amount' => $this->getAmount(),
             'currency' => MapperCodeCurrency::convertCurrencyNameToCode($this->getCurrency()),
-            'description' => $this->getDescription(),
             'client_id' => $this->getClientId(),
             'success_url' => $this->getSuccessUrl(),
             'fail_url' => $this->getFailUrl(),
             'notify_url' => $this->getNotifyUrl(),
-            'router_data' => $this->getRouterData(),
-            'custom_data' => $this->getCustomData(),
-            'payment_method' => $this->getPaymentMethod(),
             'additional_data' => $this->getAdditionalData(),
-            'auto_redirect' => $this->getAutoRedirect(),
-            'buyer_id' => $this->getBuyerId(),
-            'buyer' => $this->getBuyer(),
-            'additional_data' => $this->getAdditionalData(),
-            'name' => $this->getName(),
-            'email' => $this->getEmail(),
-
 
         ];
         return array_filter($data, function ($value) {
@@ -222,16 +125,14 @@ class PurchaseRequest extends AbstractRequest
 
     public function sendData($data)
     {
-        $secretKey = $this->getParameter('secretKey');
-        $jsonData = json_encode($data);
 
+        $jsonData = json_encode($data);
         $headers = [
             'Content-Type' => 'application/json',
-            'API-Sign' => hash('sha256', $secretKey . $jsonData)
+            'API-Sign' => hash('sha256', $this->getSecretKey() . $jsonData)
         ];
 
-        $httpResponse = $this->httpClient->request('POST', $this->getApiEndpoint(), $headers, $jsonData);
-
+        $httpResponse = $this->httpClient->request('POST', 'https://api.pay-planet.com/api/v1/paymentgate/payment/'. $this->getMethod() .'/', $headers, $jsonData);
         return $this->createResponse($httpResponse->getBody()->getContents());
     }
 
@@ -241,11 +142,5 @@ class PurchaseRequest extends AbstractRequest
         return $this->response = new PurchaseResponse($this, json_decode($data, true));
     }
 
-    protected function getApiEndpoint()
-    {
-        $mth = $this->getMethod();
-        settype($mth, "integer");
-        return Methods::getLink($mth);
-    }
 }
 
