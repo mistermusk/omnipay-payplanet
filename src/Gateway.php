@@ -30,6 +30,15 @@ class Gateway extends AbstractGateway
         return $this->keys;
     }
 
+    public function isSignatureValid($sign, $data, $method){
+        $sign = (string) $sign;
+        $secretKey = (string) $this->getKeys($method)['secret_key'];
+        $jsonData = json_encode($data);
+        $computedSign = hash('sha256', $secretKey . $jsonData);
+        return $sign === $computedSign;
+    }
+
+
     public function purchase(array $parameters = [])
     {
         return $this->createRequest('\Omnipay\PayPlanet\Message\PurchaseRequest', $parameters)
