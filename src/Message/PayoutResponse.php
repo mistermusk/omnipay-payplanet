@@ -26,4 +26,9 @@ class PayoutResponse extends AbstractResponse
         return $this->data['tx']['status'];
     }
 
+    public function getTx()
+    {
+        return isset($this->data['tx']['tx']) ? $this->data['tx']['tx'] : null;
+    }
+
 }

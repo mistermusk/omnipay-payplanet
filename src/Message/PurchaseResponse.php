@@ -20,12 +20,12 @@ class PurchaseResponse extends AbstractResponse implements RedirectResponseInter
 
     public function getTx()
     {
-        return isset($this->data['info']['tx']) ? json_encode($this->data['info']['tx']) : null;
+        return isset($this->data['info']['tx']) ? $this->data['info']['tx'] : null;
     }
 
     public function getStatus()
     {
-        return isset($this->data['info']['status']) ? json_encode($this->data['info']['status']) : null;
+        return isset($this->data['info']['status']) ? $this->data['info']['status'] : null;
     }
 
     public function getMessage()
