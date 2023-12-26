@@ -12,27 +12,37 @@ class Gateway extends AbstractGateway
     }
 
     private $keys = [];
-    public function setKeys($method, $shop_id, $secret_key)
+    public function setKeys($apiData)
     {
-        $this->keys[$method] = [
-            'api_key' => $shop_id,
-            'secret_key' => $secret_key,
-        ];
+        $this->keys = $apiData;
     }
 
-    public function getKeys($method)
-    {
-        return isset($this->keys[$method]) ? $this->keys[$method] : null;
-    }
-
-    public function getFullKeys()
+    public function getKeys()
     {
         return $this->keys;
     }
 
-    public function isSignatureValid($sign, $data, $method){
+    public function formatLevel($level){
+        if ($level){
+            return 'first_level';
+        }
+        return 'second_level';
+    }
+
+
+    public function isSignatureValidDeposit($sign, $data, $level, $method, $currency){
+
         $sign = (string) $sign;
-        $secretKey = (string) $this->getKeys($method)['secret_key'];
+        $secretKey = (string) $this->getKeys()['api_deposit'][$this->formatLevel($level)][$method][$currency]['secret_key'];
+        $jsonData = json_encode($data);
+        $computedSign = hash('sha256', $secretKey . $jsonData);
+        return $sign === $computedSign;
+    }
+
+    public function isSignatureValidWithdrawal($sign, $data, $method, $currency){
+
+        $sign = (string) $sign;
+        $secretKey = (string) $this->getKeys()['api_deposit'][$method][$currency]['secret_key'];
         $jsonData = json_encode($data);
         $computedSign = hash('sha256', $secretKey . $jsonData);
         return $sign === $computedSign;
@@ -42,19 +52,19 @@ class Gateway extends AbstractGateway
     public function purchase(array $parameters = [])
     {
         return $this->createRequest('\Omnipay\PayPlanet\Message\PurchaseRequest', $parameters)
-            ->setFullKeys($this->getFullKeys());
+            ->setKeys($this->getKeys());
     }
 
     public function payout(array $parameters = [])
     {
         return $this->createRequest('\Omnipay\PayPlanet\Message\PayoutRequest', $parameters)
-            ->setFullKeys($this->getFullKeys());
+            ->setKeys($this->getKeys());
     }
 
     public function moderated(array $parameters = [])
     {
         return $this->createRequest('\Omnipay\PayPlanet\Message\ModeratePayoutRequest', $parameters)
-            ->setFullKeys($this->getFullKeys());
+            ->setKeys($this->getKeys());
     }
 
 
