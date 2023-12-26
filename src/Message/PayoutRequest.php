@@ -8,23 +8,23 @@ use Omnipay\Common\Message\AbstractRequest;
 class PayoutRequest extends AbstractRequest
 {
 
-    public function setFullKeys($fullKeys){
-        return $this->setParameter('fullKeys', $fullKeys);
+    public function setKeys($fullKeys){
+        return $this->setParameter('keys', $fullKeys);
     }
 
-    public function getFullKeys()
+    public function getKeys()
     {
-        return $this->getParameter('fullKeys');
+        return $this->getParameter('keys');
     }
 
     public function getApikey()
     {
-        return $this->getFullKeys()[$this->getMethod()]['api_key'];
+        return $this->getKeys()['api_withdrawal'][$this->getMethod()][$this->getCurrency()]['api_key'];
     }
 
     public function getSecretKey()
     {
-        return $this->getFullKeys()[$this->getMethod()]['secret_key'];
+        return $this->getKeys()['api_withdrawal'][$this->getMethod()][$this->getCurrency()]['secret_key'];
     }
 
 
@@ -49,37 +49,29 @@ class PayoutRequest extends AbstractRequest
     }
 
 
-    public function getClientId()
+    public function getTx()
     {
-        return $this->getParameter('client_id');
+        return $this->getParameter('tx');
+
+    }
+    public function setTx()
+    {
+        return $this->getParameter('tx');
 
     }
 
-    public function getSuccessUrl()
+    public function getRedirecturl()
     {
-        return $this->getParameter('success_url');
-    }
-    public function setSuccessUrl($value)
-    {
-        return $this->setParameter('success_url', $value);
+        return $this->getKeys()['redirect_url'];
     }
 
-    public function getFailUrl()
+    public function getCallbackurl()
     {
-        return $this->getParameter('fail_url');
+        return $this->getParameter('callback_url');
     }
-    public function setFailUrl($value)
+    public function setCallbackurl($value)
     {
-        return $this->setParameter('fail_url', $value);
-    }
-
-    public function getNotifyUrl()
-    {
-        return $this->getParameter('notify_url');
-    }
-    public function setNotifyUrl($value)
-    {
-        return $this->setParameter('notify_url', $value);
+        return $this->setParameter('callback_url', $value);
     }
 
 
@@ -104,16 +96,16 @@ class PayoutRequest extends AbstractRequest
 
     public function getData()
     {
-        $this->validate('amount', 'currency');
+        $this->validate('keys', 'amount', 'currency', 'method', 'additional_data', 'callback_url');
 
         $data = [
             'endpoint' => $this->getApikey(),
             'amount' => $this->getAmount(),
             'currency' => MapperCodeCurrency::convertCurrencyNameToCode($this->getCurrency()),
-            'client_id' => $this->getClientId(),
-            'success_url' => $this->getSuccessUrl(),
-            'fail_url' => $this->getFailUrl(),
-            'notify_url' => $this->getNotifyUrl(),
+            'client_id' => $this->getTx(),
+            'success_url' => $this->getRedirecturl(),
+            'fail_url' => $this->getRedirecturl(),
+            'notify_url' => $this->getCallbackurl(),
             'additional_data' => $this->getAdditionalData(),
 
         ];

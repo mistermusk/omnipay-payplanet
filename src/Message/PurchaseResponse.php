@@ -10,10 +10,24 @@ class PurchaseResponse extends AbstractResponse implements RedirectResponseInter
 {
     public function isSuccessful()
     {
-        if (isset($this->data['redirect_url'])) {
+        $successfulStatuses = ['create', 'moderation', 'process', 'queue', 'waiting', 'preauth', 'success'];
+        if (isset($this->data['info']['status']) && in_array($this->data['info']['status'], $successfulStatuses)) {
             return true;
+        } else {
+            return false;
         }
     }
+
+    public function getTx()
+    {
+        return isset($this->data['info']['tx']) ? json_encode($this->data['info']['tx']) : null;
+    }
+
+    public function getStatus()
+    {
+        return isset($this->data['info']['status']) ? json_encode($this->data['info']['status']) : null;
+    }
+
     public function getMessage()
     {
         return isset($this->data) ? json_encode($this->data) : null;
@@ -21,7 +35,7 @@ class PurchaseResponse extends AbstractResponse implements RedirectResponseInter
 
     public function getRedirectUrl()
     {
-        return $this->isSuccessful() ? $this->data['redirect_url'] : null;
+        return $this->data['redirect_url'];
     }
 
 }

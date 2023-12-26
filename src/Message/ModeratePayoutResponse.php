@@ -8,19 +8,22 @@ class ModeratePayoutResponse extends AbstractResponse
 {
     public function isSuccessful()
     {
-        if (isset($this->data['redirect_url'])) {
+        $successfulStatuses = ['create', 'moderation', 'process', 'queue', 'waiting', 'preauth', 'success'];
+        if (isset($this->data['tx']['status']) && in_array($this->data['tx']['status'], $successfulStatuses)) {
             return true;
+        } else {
+            return false;
         }
     }
 
-    public function getTransactionReference()
+    public function getStatus()
     {
-        return isset($this->data['tx']['tx']) ? $this->data['tx']['tx'] : null;
+        return isset($this->data['tx']['status']) ? $this->data['tx']['status'] : null;
     }
 
     public function getMessage()
     {
-        return isset($this->data['errors']) ? json_encode($this->data['errors']) : null;
+        return isset($this->data) ? json_encode($this->data) : null;
     }
 
 }

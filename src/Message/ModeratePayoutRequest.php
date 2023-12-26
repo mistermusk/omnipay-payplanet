@@ -8,24 +8,36 @@ use Omnipay\Common\Message\AbstractRequest;
 class ModeratePayoutRequest extends AbstractRequest
 {
 
-    public function setFullKeys($fullKeys){
-        return $this->setParameter('fullKeys', $fullKeys);
+    public function setKeys($fullKeys){
+        return $this->setParameter('keys', $fullKeys);
     }
 
-    public function getFullKeys()
+    public function getKeys()
     {
-        return $this->getParameter('fullKeys');
+        return $this->getParameter('keys');
     }
 
     public function getApikey()
     {
-        return $this->getFullKeys()[$this->getMethod()]['api_key'];
+        return $this->getKeys()['api_withdrawal'][$this->getMethod()][$this->getCurrency()]['api_key'];
     }
 
     public function getSecretKey()
     {
-        return $this->getFullKeys()[$this->getMethod()]['secret_key'];
+        return $this->getKeys()['api_withdrawal'][$this->getMethod()][$this->getCurrency()]['secret_key'];
     }
+
+    public function getCurrency()
+    {
+        return $this->getParameter('currency');
+    }
+
+    public function setCurrency($value)
+    {
+        return $this->setParameter('currency', $value);
+    }
+
+
 
     public function getMethod()
     {
