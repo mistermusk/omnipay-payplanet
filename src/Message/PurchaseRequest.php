@@ -107,7 +107,7 @@ class PurchaseRequest extends AbstractRequest
 
     public function getData()
     {
-        $this->validate('amount', 'currency', 'level', 'method', 'additional_data', 'callback_url');
+//        $this->validate('amount', 'currency', 'level', 'method', 'additional_data', 'callback_url');
 
         $data = [
             'endpoint' => $this->getApikey(),
